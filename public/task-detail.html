@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Task Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container py-4">
+    <a href="pwd-dashboard.html" class="btn btn-link">← Back to jobs</a>
+    <div id="task-detail" class="my-3">
+      <!-- filled by JS -->
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/tasks.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', ()=> {
+      const params = new URLSearchParams(location.search);
+      const id = params.get('id');
+      if(!id) { document.getElementById('task-detail').innerText = 'Task not found'; return; }
+      renderTaskDetail(id);
+    });
+  </script>
+</body>
+</html>

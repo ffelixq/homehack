@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PWD Employer Collaboration — Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-light" id="body-root">
+  <!-- Skip link -->
+  <a class="skip-link visually-hidden-focusable" href="#main">Skip to content</a>
+
+  <!-- Top controls -->
+  <div class="d-flex justify-content-end gap-2 p-2">
+    <button class="btn btn-outline-secondary btn-sm" id="decrease-font" aria-label="Decrease font size">A-</button>
+    <button class="btn btn-outline-secondary btn-sm" id="reset-font" aria-label="Reset font size">A</button>
+    <button class="btn btn-outline-secondary btn-sm" id="increase-font" aria-label="Increase font size">A+</button>
+    <button class="btn btn-outline-dark btn-sm" id="toggle-contrast" aria-pressed="false">High Contrast</button>
+    <button class="btn btn-info btn-sm" id="tts-read" aria-label="Read page aloud">Read Aloud</button>
+    <button class="btn btn-outline-primary btn-sm" id="voice-btn" aria-label="Voice command (prototype)">🎤</button>
+    <select id="langSelect" class="form-select form-select-sm" aria-label="Language toggle" style="width:140px;">
+      <option value="en" selected>English</option>
+      <option value="zh">中文</option>
+      <option value="ms">Bahasa</option>
+      <option value="ta">தமிழ்</option>
+    </select>
+  </div>
+
+  <!-- Header -->
+  <header class="container py-4" aria-labelledby="site-title">
+    <nav class="navbar navbar-expand-lg" aria-label="Main navigation">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html" id="site-title">InclusiveWork • PWD</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+          <ul class="navbar-nav ms-auto gap-2">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="pwd-dashboard.html">Jobs</a></li>
+            <li class="nav-item"><a class="nav-link" href="company-dashboard.html">For Employers</a></li>
+            <li class="nav-item"><a class="nav-link" href="#resources">Resources</a></li>
+            <li class="nav-item"><a class="nav-link" href="register.html">Sign up</a></li>
+            <li class="nav-item"><a class="nav-link" href="login.html">Sign in</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="container" tabindex="-1">
+    <section class="row align-items-center my-4">
+      <div class="col-md-6">
+        <h1>Inclusive Work Opportunities for PWDs</h1>
+        <p class="lead">Micro-projects, short tasks and flexible work designed with accessibility in mind.</p>
+        <ul>
+          <li>Accessible-first platform: keyboard & screen reader friendly</li>
+          <li>Role-based signup: PWDs, Companies, Partners</li>
+          <li>Trusted collaborator badges and portfolio support</li>
+        </ul>
+
+        <div class="d-flex gap-2">
+          <a class="btn btn-primary btn-lg" href="register.html" role="button">Sign Up as PWD / Company</a>
+          <a class="btn btn-outline-primary btn-lg" href="pwd-dashboard.html" role="button">Browse Jobs</a>
+        </div>
+
+      </div>
+      <div class="col-md-6 text-center">
+        <img src="images/placeholder-illus.svg" alt="Illustration of accessible work" class="img-fluid" />
+      </div>
+    </section>
+
+    <section id="resources" class="my-5" aria-labelledby="resources-title">
+      <h2 id="resources-title">Partners & Testimonials</h2>
+      <div class="row g-3">
+        <div class="col-sm-4">
+          <div class="card p-3" role="article" aria-label="Partner logo and quote">
+            <img src="images/partner1.png" alt="Partner logo" class="mb-2" style="max-height:40px;">
+            <p class="mb-0">“InclusiveWork helped us find reliable collaborators” — Employer A</p>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card p-3">
+            <img src="images/partner2.png" alt="Partner logo" class="mb-2" style="max-height:40px;">
+            <p class="mb-0">“Great onboarding and accessibility support” — PWD B</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="my-5" aria-labelledby="how-title">
+      <h2 id="how-title">How it works</h2>
+      <ol>
+        <li>Sign up and set your accessibility preferences</li>
+        <li>Post or browse micro-projects</li>
+        <li>Apply, complete tasks and earn badges</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="container py-4">
+    <p class="small mb-0">© 2025 InclusiveWork</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/tasks.js"></script>
+</body>
+</html>

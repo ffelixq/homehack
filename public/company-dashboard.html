@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Company Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link visually-hidden-focusable" href="#post-task">Skip to post task</a>
+  <div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center">
+      <h1>Your posted tasks</h1>
+      <div>
+        <a href="index.html" class="btn btn-link">Home</a>
+        <button id="logoutBtn" class="btn btn-outline-secondary">Logout</button>
+      </div>
+    </div>
+
+    <section id="post-task" class="my-4">
+      <h2>Post a micro-project</h2>
+      <form id="postTaskForm">
+        <div class="row g-2">
+          <div class="col-md-6">
+            <label class="form-label">Title</label>
+            <input id="task-title" class="form-control" required />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Duration</label>
+            <input id="task-duration" class="form-control" placeholder="e.g., 1 week" />
+          </div>
+          <div class="col-12">
+            <label class="form-label">Description</label>
+            <textarea id="task-desc" class="form-control" rows="3"></textarea>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Skills required</label>
+            <input id="task-skills" class="form-control" />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Accommodations</label>
+            <input id="task-acc" class="form-control" />
+          </div>
+        </div>
+        <div class="mt-2">
+          <button class="btn btn-success" type="submit">Post Task</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="company-tasks" class="my-4 row g-3" aria-label="Your tasks">
+      <!-- populated by js -->
+    </section>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/tasks.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', ()=> {
+      const user = getCurrentUser();
+      if(!user || user.role !== 'Company') { alert('Please login as Company'); location.href='login.html'; return; }
+      renderCompanyTasks();
+    });
+
+    document.getElementById('postTaskForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const task = {
+        title: document.getElementById('task-title').value.trim(),
+        description: document.getElementById('task-desc').value.trim(),
+        skills_required: document.getElementById('task-skills').value.trim(),
+        accommodations: document.getElementById('task-acc').value.trim(),
+        duration: document.getElementById('task-duration').value,
+        company_id: getCurrentUser().id
+      };
+      createLocalTask(task);
+      document.getElementById('postTaskForm').reset();
+      renderCompanyTasks();
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', ()=>{ logoutLocal(); location.href='index.html'; });
+  </script>
+</body>
+</html>

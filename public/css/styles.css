@@ -1,0 +1,50 @@
+:root {
+  --base-font: 16px;
+}
+body { font-size: var(--base-font); }
+
+/* Skip link visible on keyboard focus */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.skip-link.visually-hidden-focusable:focus {
+  left: 10px;
+  top: 10px;
+  width: auto;
+  height: auto;
+  background: #000;
+  color: #fff;
+  padding: 8px 12px;
+  z-index: 9999;
+}
+
+/* High contrast mode toggle class */
+.high-contrast {
+  background: #000 !important;
+  color: #fff !important;
+}
+.high-contrast a { color: #0ff !important; }
+
+/* Focus outline for keyboard navigation */
+:focus {
+  outline: 3px solid #0d6efd;
+  outline-offset: 2px;
+}
+
+/* Make buttons larger / easier to tap */
+.btn { padding: .6rem 1rem; }
+
+/* Task card */
+.task-card { border: 1px solid #ddd; padding: 16px; border-radius: 6px; background:#fff; }
+.badge-trusted { background:#0d6efd; color:#fff; padding: 3px 6px; border-radius:4px; }
+
+/* Simple responsive image placeholder */
+img[alt="Illustration of accessible work"] { max-width: 80%; }
+
+/* Mic button animation */
+.mic-active { box-shadow: 0 0 10px rgba(13,110,253,0.7); transform: scale(1.05); }
