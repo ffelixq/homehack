@@ -1,50 +1,140 @@
-:root {
-  --base-font: 16px;
-}
-body { font-size: var(--base-font); }
 
-/* Skip link visible on keyboard focus */
-.skip-link {
-  position: absolute;
-  left: -999px;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
+:root{
+  --base-font: 18px;
+  --font-family: "Helvetica Neue", Arial, sans-serif;
+  --bg: #ffffff;
+  --text: #0b2545; /* deep navy */
+  --accent: #007b7f; /* teal */
+  --muted: #6c757d;
+  --focus: #ffb703;
 }
-.skip-link.visually-hidden-focusable:focus {
-  left: 10px;
-  top: 10px;
-  width: auto;
-  height: auto;
-  background: #000;
-  color: #fff;
-  padding: 8px 12px;
-  z-index: 9999;
+html,body { font-family: var(--font-family); font-size: var(--base-font); color: var(--text); background: var(--bg); }
+a { color: var(--accent); }
+.btn { border-radius: 8px; }
+
+div.tool-buttons {
+  background: #92d3d5; color: #fff;
 }
 
-/* High contrast mode toggle class */
-.high-contrast {
+
+/* ===== High Contrast Mode ===== */
+body.high-contrast {
   background: #000 !important;
-  color: #fff !important;
-}
-.high-contrast a { color: #0ff !important; }
-
-/* Focus outline for keyboard navigation */
-:focus {
-  outline: 3px solid #0d6efd;
-  outline-offset: 2px;
+  color: #ffeb3b !important;
 }
 
-/* Make buttons larger / easier to tap */
-.btn { padding: .6rem 1rem; }
+body.high-contrast h1,
+body.high-contrast h2,
+body.high-contrast h3,
+body.high-contrast p {
+  background: #000 !important;
+  color: #ffeb3b !important;
+}
+
+body.high-contrast main section div.resource-button .sign-up,
+body.high-contrast .sign-in,
+body.high-contrast #applyFilters,
+body.high-contrast #register-btn{
+  background: #00e5ff !important;
+  color: #000 !important;
+}
+
+/* Normal body links/text (outside navbar) → Yellow */
+body.high-contrast a {
+  color: #ffeb3b !important;
+}
 
 /* Task card */
-.task-card { border: 1px solid #ddd; padding: 16px; border-radius: 6px; background:#fff; }
-.badge-trusted { background:#0d6efd; color:#fff; padding: 3px 6px; border-radius:4px; }
+body.high-contrast .task-card { 
+  border: 1px solid #e6eef0;
+  padding:1rem;
+  border-radius:8px;
+  background:#000000;
+  color: #ffeb3b;
+ }
 
-/* Simple responsive image placeholder */
-img[alt="Illustration of accessible work"] { max-width: 80%; }
+body.high-contrast .card { 
+  border: 1px solid #e6eef0;
+  padding:1rem;
+  border-radius:8px;
+  background:#000000;
+  color: #ffeb3b;
+}
 
-/* Mic button animation */
-.mic-active { box-shadow: 0 0 10px rgba(13,110,253,0.7); transform: scale(1.05); }
+/* ===== Navbar styling in High Contrast ===== */
+body.high-contrast .navbar {
+  background: #000 !important;
+  border-bottom: 2px solid #fff;
+}
+
+/* Navbar links + logo → Neon blue by default */
+body.high-contrast .navbar-menu li a,
+body.high-contrast .navbar-brand {
+  color: #00e5ff !important;
+}
+
+/* Navbar hover → White */
+body.high-contrast .navbar-menu li a:hover,
+body.high-contrast .navbar-brand:hover {
+  color: #fff !important;
+}
+
+/* Toolbar buttons in navbar → Neon blue */
+body.high-contrast #decrease-font,
+body.high-contrast #reset-font,
+body.high-contrast #increase-font,
+body.high-contrast #toggle-contrast,
+body.high-contrast #voice-btn,
+body.high-contrast #langSelect {
+  background: #000 !important;
+  color: #00e5ff !important;
+  border: 1px solid #00e5ff !important;
+}
+
+body.high-contrast div.tool-buttons {
+    background: #000 !important;
+    border-bottom: 1px solid #fff;
+}
+
+/* Active font-size button stays inverted */
+body.high-contrast .a-btn.active {
+  background: #00e5ff !important;
+  color: #000 !important;
+}
+
+
+.skip-link { position:absolute; left:-999px; top:auto; width:1px; height:1px; overflow:hidden; }
+.skip-link.visually-hidden-focusable:focus { left:10px; top:10px; width:auto; height:auto; padding:8px; background:#fff; color:#000; z-index:1000; border:2px solid var(--accent); }
+:focus { outline: 3px solid var(--focus); outline-offset: 2px; }
+.btn { padding: .6rem 1rem; }
+.container h1,h2,h3{ color:var(--text); }
+.navbar-brand, .brand { font-weight:700; letter-spacing:0.2px; }
+.footer { color:var(--muted); font-size:14px; }
+/* Accessibility helper controls */
+.controls { display:flex; gap:.5rem; align-items:center; }
+/* Task card */
+.task-card { border: 1px solid #e6eef0; padding:1rem; border-radius:8px; background:#fff; }
+/* responsive */
+@media (max-width:576px){ :root{ --base-font:16px;} .controls{flex-wrap:wrap;} }
+
+
+/* Navbar (SGEnable-inspired) */
+.navbar {
+  background: #fff;
+  border-bottom: 2px solid #007b7f;
+  padding: 0.75rem 1rem;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+.navbar .container { display: flex; justify-content: space-between; align-items: center; }
+.navbar-brand { font-weight: 700; font-size: 1.25rem; color: #007b7f; text-decoration: none; }
+.navbar-menu { list-style: none; display: flex; gap: 1.5rem; margin: 0; padding: 0; }
+.navbar-menu a { text-decoration: none; font-size: 1rem; color: #0b2545; padding: 0.5rem; }
+.navbar-menu a:focus, .navbar-menu a:hover {
+  background: #007b7f; color: #fff; border-radius: 4px; outline: none;
+}
+.navbar-toggle { display: none; font-size: 1.5rem; background: none; border: none; cursor: pointer; }
+@media (max-width: 768px) {
+  .navbar-menu { display: none; flex-direction: column; background: #fff; border-top: 1px solid #ddd; margin-top: 0.5rem; }
+  .navbar-menu.active { display: flex; }
+  .navbar-toggle { display: block; color: #007b7f; }
+}

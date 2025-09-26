@@ -8,6 +8,45 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+  <!-- Top controls -->
+  <div class=" tool-buttons d-flex justify-content-end gap-2 p-2">
+    <button class="btn btn-outline-secondary btn-sm" id="decrease-font" aria-label="Decrease font size">A-</button>
+    <button class="btn btn-outline-secondary btn-sm" id="reset-font" aria-label="Reset font size">A</button>
+    <button class="btn btn-outline-secondary btn-sm" id="increase-font" aria-label="Increase font size">A+</button>
+    <button class="btn btn-outline-dark btn-sm" id="toggle-contrast" aria-pressed="false">High Contrast</button>
+    <button class="btn btn-info btn-sm" id="tts-read" aria-label="Read page aloud">Read Aloud</button>
+    <button class="btn btn-outline-primary btn-sm" id="voice-btn" aria-label="Voice command (prototype)">🎤</button>
+    <select id="langSelect" class="form-select form-select-sm" aria-label="Language toggle" style="width:140px;">
+      <option value="en" selected>English</option>
+      <option value="zh">中文</option>
+      <option value="ms">Bahasa</option>
+      <option value="ta">தமிழ்</option>
+    </select>
+  </div>
+
+  <!-- Header -->
+  <header class="container py-4" aria-labelledby="site-title">
+    
+    <!-- Accessible Navbar -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+      <div class="container">
+        <a href="index.html" class="navbar-brand">Employer–PWD Portal</a>
+
+        <button class="navbar-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          ☰
+        </button>
+
+        <ul class="navbar-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="pwd-dashboard.html">PWD Dashboard</a></li>
+          <li><a href="company-dashboard.html">For Employers</a></li>
+          <li><a href="index.html">Resources</a></li>
+          <li><a href="login.html">Login</a></li>
+        </ul>
+      </div>
+    </nav>
+
+  </header>
   <a class="skip-link visually-hidden-focusable" href="#register-form">Skip to content</a>
 
   <div class="container py-5">

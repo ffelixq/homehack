@@ -9,10 +9,10 @@
 </head>
 <body class="bg-light" id="body-root">
   <!-- Skip link -->
-  <a class="skip-link visually-hidden-focusable" href="#main">Skip to content</a>
+  <a class="skip-link visually-hidden-focusable" href="#main" aria-label="Skip to main content">Skip to content</a>
 
   <!-- Top controls -->
-  <div class="d-flex justify-content-end gap-2 p-2">
+  <div class=" tool-buttons d-flex justify-content-end gap-2 p-2">
     <button class="btn btn-outline-secondary btn-sm" id="decrease-font" aria-label="Decrease font size">A-</button>
     <button class="btn btn-outline-secondary btn-sm" id="reset-font" aria-label="Reset font size">A</button>
     <button class="btn btn-outline-secondary btn-sm" id="increase-font" aria-label="Increase font size">A+</button>
@@ -29,27 +29,29 @@
 
   <!-- Header -->
   <header class="container py-4" aria-labelledby="site-title">
-    <nav class="navbar navbar-expand-lg" aria-label="Main navigation">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="index.html" id="site-title">InclusiveWork • PWD</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-          <span class="navbar-toggler-icon"></span>
+    
+    <!-- Accessible Navbar -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+      <div class="container">
+        <a href="index.html" class="navbar-brand">Employer–PWD Portal</a>
+
+        <button class="navbar-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          ☰
         </button>
-        <div class="collapse navbar-collapse" id="navMenu">
-          <ul class="navbar-nav ms-auto gap-2">
-            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="pwd-dashboard.html">Jobs</a></li>
-            <li class="nav-item"><a class="nav-link" href="company-dashboard.html">For Employers</a></li>
-            <li class="nav-item"><a class="nav-link" href="#resources">Resources</a></li>
-            <li class="nav-item"><a class="nav-link" href="register.html">Sign up</a></li>
-            <li class="nav-item"><a class="nav-link" href="login.html">Sign in</a></li>
-          </ul>
-        </div>
+
+        <ul class="navbar-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="pwd-dashboard.html">PWD Dashboard</a></li>
+          <li><a href="company-dashboard.html">For Employers</a></li>
+          <li><a href="#resources">Resources</a></li>
+          <li><a href="login.html">Login</a></li>
+        </ul>
       </div>
     </nav>
+
   </header>
 
-  <main id="main" class="container" tabindex="-1">
+  <main role="main" id="main"  id="main" class="container" tabindex="-1">
     <section class="row align-items-center my-4">
       <div class="col-md-6">
         <h1>Inclusive Work Opportunities for PWDs</h1>
@@ -60,8 +62,8 @@
           <li>Trusted collaborator badges and portfolio support</li>
         </ul>
 
-        <div class="d-flex gap-2">
-          <a class="btn btn-primary btn-lg" href="register.html" role="button">Sign Up as PWD / Company</a>
+        <div class="resource-button d-flex gap-2">
+          <a class="sign-up btn btn-primary btn-lg" href="register.html" role="button">Sign Up as PWD / Company</a>
           <a class="btn btn-outline-primary btn-lg" href="pwd-dashboard.html" role="button">Browse Jobs</a>
         </div>
 
@@ -107,5 +109,14 @@
   <script src="js/main.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/tasks.js"></script>
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const contrastBtn = document.querySelector(".contrast-btn");
+    contrastBtn.addEventListener("click", function () {
+      document.body.classList.toggle("high-contrast");
+    });
+  });
+  </script>
+
 </body>
 </html>

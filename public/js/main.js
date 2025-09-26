@@ -63,3 +63,17 @@ function handleVoiceCommand(cmd){
   else if(cmd.includes('home')) location.href='index.html';
   else alert('Heard: "' + cmd + '". Try commands: "show tasks", "post task", "home".');
 }
+
+
+// Navbar toggle for mobile
+document.addEventListener("DOMContentLoaded", () => {
+  const toggleBtn = document.querySelector(".navbar-toggle");
+  const menu = document.querySelector(".navbar-menu");
+  if (toggleBtn && menu) {
+    toggleBtn.addEventListener("click", () => {
+      const expanded = toggleBtn.getAttribute("aria-expanded") === "true";
+      toggleBtn.setAttribute("aria-expanded", !expanded);
+      menu.classList.toggle("active");
+    });
+  }
+});
