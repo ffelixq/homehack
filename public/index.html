@@ -44,8 +44,7 @@
           <li><a href="pwd-dashboard.html">PWD Dashboard</a></li>
           <li><a href="company-dashboard.html">For Employers</a></li>
           <li><a href="#resources">Resources</a></li>
-          <li><a href="profile.html">Profile</a></li>
-          <li><a id="auth-link" href="login.html">Login</a></li>
+          <li><a href="login.html">Login</a></li>
         </ul>
       </div>
     </nav>
@@ -70,7 +69,7 @@
 
       </div>
       <div class="col-md-6 text-center">
-        <img src="images/placeholder-illus.svg" alt="Illustration of accessible work" class="img-fluid" />
+        <img src=pics/home.png alt="Illustration of accessible work" class="img-fluid" />
       </div>
     </section>
 
@@ -79,7 +78,7 @@
       <div class="row g-3">
         <div class="col-sm-4">
           <div class="card p-3" role="article" aria-label="Partner logo and quote">
-            <img src="images/partner1.png" alt="Partner logo" class="mb-2" style="max-height:40px;">
+            <img src="images/partner1.png" alt="Partner logo" class="mb-2" style="max-height:40px; ">
             <p class="mb-0">“InclusiveWork helped us find reliable collaborators” — Employer A</p>
           </div>
         </div>
@@ -117,29 +116,6 @@
       document.body.classList.toggle("high-contrast");
     });
   });
-  </script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const authLink = document.getElementById('auth-link');
-      if (!authLink) return;
-
-      const user = getCurrentUser();
-
-      if (user && user.id) {
-        // Logged in → show Logout
-        authLink.textContent = 'Logout';
-        authLink.href = '#';
-        authLink.addEventListener('click', (e) => {
-          e.preventDefault();
-          logoutLocal();
-          location.href = 'index.html';
-        });
-      } else {
-        // Not logged in → show Login
-        authLink.textContent = 'Login';
-        authLink.href = 'login.html';
-      }
-    });
   </script>
 
 </body>
