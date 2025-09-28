@@ -44,6 +44,7 @@ function renderTaskList(filters = {}){
         <p>${escapeHtml(t.description)}</p>
         <p><strong>Skills:</strong> ${escapeHtml(t.skills_required)}</p>
         <p><strong>Duration:</strong> ${escapeHtml(t.duration)} • <strong>Mode:</strong> ${escapeHtml(t.mode || 'Remote')}</p>
+        <p><strong>Expected Pay:</strong> ${escapeHtml(t.expected_pay || 'Not specified')}</p>
         <div class="d-flex gap-2">
           <a class="btn btn-sm btn-primary" href="task-detail.html?id=${t.id}" aria-label="Open ${escapeHtml(t.title)} details">View</a>
           <button class="btn btn-sm btn-outline-success" onclick="applyToTask('${t.id}')">Quick apply</button>

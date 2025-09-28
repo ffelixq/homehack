@@ -4,16 +4,47 @@ const root = document.documentElement;
 const body = document.getElementById('body-root') || document.body;
 let base = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--base-font')) || 16;
 
+// ===== Contrast persistence (ADDED) =====
+const CONTRAST_KEY = 'inclusive_contrast_mode';
+
+function applySavedContrast(){
+  const saved = localStorage.getItem(CONTRAST_KEY);
+  const isHigh = saved === 'high';
+  body.classList.toggle('high-contrast', isHigh);
+  document.documentElement.classList.toggle('high-contrast', isHigh);
+  const btn = document.getElementById('toggle-contrast');
+  if (btn) btn.setAttribute('aria-pressed', String(isHigh));
+}
+
+function toggleContrast(){
+  const isHigh = !body.classList.contains('high-contrast');
+  body.classList.toggle('high-contrast', isHigh);
+  document.documentElement.classList.toggle('high-contrast', isHigh);
+  localStorage.setItem(CONTRAST_KEY, isHigh ? 'high' : 'normal');
+  const btn = document.getElementById('toggle-contrast');
+  if (btn) btn.setAttribute('aria-pressed', String(isHigh));
+}
+
+// Apply contrast as early as possible (ADDED)
+applySavedContrast();
+
 document.addEventListener('DOMContentLoaded', ()=>{
-  document.getElementById('increase-font')?.addEventListener('click', ()=> { base += 1; document.documentElement.style.setProperty('--base-font', base + 'px'); });
-  document.getElementById('decrease-font')?.addEventListener('click', ()=> { base = Math.max(12, base - 1); document.documentElement.style.setProperty('--base-font', base + 'px'); });
-  document.getElementById('reset-font')?.addEventListener('click', ()=> { base = 16; document.documentElement.style.setProperty('--base-font', base + 'px'); });
+  document.getElementById('increase-font')?.addEventListener('click', ()=> { 
+    base += 1; 
+    document.documentElement.style.setProperty('--base-font', base + 'px'); 
+  });
+  document.getElementById('decrease-font')?.addEventListener('click', ()=> { 
+    base = Math.max(12, base - 1); 
+    document.documentElement.style.setProperty('--base-font', base + 'px'); 
+  });
+  document.getElementById('reset-font')?.addEventListener('click', ()=> { 
+    base = 16; 
+    document.documentElement.style.setProperty('--base-font', base + 'px'); 
+  });
 
   const contrastBtn = document.getElementById('toggle-contrast');
-  contrastBtn?.addEventListener('click', ()=>{
-    const enabled = body.classList.toggle('high-contrast');
-    contrastBtn.setAttribute('aria-pressed', (!!enabled).toString());
-  });
+  // UPDATED: use toggleContrast() instead of inline toggle
+  contrastBtn?.addEventListener('click', toggleContrast);
 
   // TTS read aloud of main content
   const ttsBtn = document.getElementById('tts-read');
@@ -63,7 +94,6 @@ function handleVoiceCommand(cmd){
   else if(cmd.includes('home')) location.href='index.html';
   else alert('Heard: "' + cmd + '". Try commands: "show tasks", "post task", "home".');
 }
-
 
 // Navbar toggle for mobile
 document.addEventListener("DOMContentLoaded", () => {
