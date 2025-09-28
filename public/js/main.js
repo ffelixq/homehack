@@ -29,17 +29,33 @@ function toggleContrast(){
 applySavedContrast();
 
 document.addEventListener('DOMContentLoaded', ()=>{
+  // ===== Font size persistence =====
+  const FONT_KEY = 'inclusive_font_size';
+
+  // Load saved font size or fallback to CSS
+  base = parseFloat(localStorage.getItem(FONT_KEY)) 
+        || parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--base-font')) 
+        || 16;
+
+  // Apply saved font size immediately
+  document.documentElement.style.setProperty('--base-font', base + 'px');
+
   document.getElementById('increase-font')?.addEventListener('click', ()=> { 
     base += 1; 
     document.documentElement.style.setProperty('--base-font', base + 'px'); 
+    localStorage.setItem(FONT_KEY, base);  // save
   });
+
   document.getElementById('decrease-font')?.addEventListener('click', ()=> { 
     base = Math.max(12, base - 1); 
     document.documentElement.style.setProperty('--base-font', base + 'px'); 
+    localStorage.setItem(FONT_KEY, base);  // save
   });
+
   document.getElementById('reset-font')?.addEventListener('click', ()=> { 
-    base = 16; 
+    base = 16;  // neutral size
     document.documentElement.style.setProperty('--base-font', base + 'px'); 
+    localStorage.setItem(FONT_KEY, base);  // save
   });
 
   const contrastBtn = document.getElementById('toggle-contrast');
