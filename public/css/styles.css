@@ -1,6 +1,6 @@
 
 :root{
-  --base-font: 18px;
+  --base-font: 16px;
   --font-family: "Helvetica Neue", Arial, sans-serif;
   --bg: #ffffff;
   --text: #0b2545; /* deep navy */
@@ -18,6 +18,7 @@ div.tool-buttons {
 
 
 /* ===== High Contrast Mode ===== */
+html.high-contrast,
 body.high-contrast {
   background: #000 !important;
   color: #ffeb3b !important;

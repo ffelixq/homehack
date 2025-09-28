@@ -7,7 +7,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body id="body-root">
   <!-- Top controls -->
   <div class=" tool-buttons d-flex justify-content-end gap-2 p-2">
     <button class="btn btn-outline-secondary btn-sm" id="decrease-font" aria-label="Decrease font size">A-</button>
@@ -41,7 +41,8 @@
           <li><a href="pwd-dashboard.html">PWD Dashboard</a></li>
           <li><a href="company-dashboard.html">For Employers</a></li>
           <li><a href="index.html">Resources</a></li>
-          <li><a href="login.html">Login</a></li>
+          <li><a href="profile.html">Profile</a></li>
+          <li><a id="auth-link" href="login.html">Login</a></li>
         </ul>
       </div>
     </nav>
@@ -51,19 +52,15 @@
   <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center">
       <h1>Available Micro-projects</h1>
-      <div>
-        <a href="index.html" class="btn btn-link">Home</a>
-        <button id="logoutBtn" class="btn btn-outline-secondary">Logout</button>
-      </div>
     </div>
 
     <section class="my-3" aria-label="Filters">
       <div class="row g-2 align-items-end">
-        <div class="col-md-3">
+        <div class="col-md-2">
           <label class="form-label" for="filter-skill">Filter by skill</label>
           <input id="filter-skill" class="form-control" placeholder="e.g., Data entry" />
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
           <label class="form-label" for="filter-duration">Duration</label>
           <select id="filter-duration" class="form-select">
             <option value="">Any</option>
@@ -72,7 +69,7 @@
             <option>1 month</option>
           </select>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
           <label class="form-label" for="filter-remote">Remote / On-site</label>
           <select id="filter-remote" class="form-select">
             <option value="">Any</option>
@@ -81,12 +78,23 @@
             <option>Hybrid</option>
           </select>
         </div>
-        <div class="col-md-3 d-grid">
-          <button id="applyFilters" class="btn btn-primary">Apply filters</button>
-          <button id="clearFilters" class="btn btn-link">Clear</button>
+        <div class="col-md-2">
+          <label class="form-label" for="filter-disability">Suited for Disability</label>
+          <select id="filter-disability" class="form-select">
+            <option value="">Any</option>
+            <option value="Physical">Physical</option>
+            <option value="Intellectual">Intellectual</option>
+            <option value="Sensory">Sensory</option>
+            <option value="Autism">Autism</option>
+          </select>
+        </div>
+        <div class="col-md-2 d-flex gap-2">
+          <button id="applyFilters" class="btn btn-primary flex-fill">Apply filters</button>
+          <button id="clearFilters" class="btn btn-outline-secondary flex-fill">Clear</button>
         </div>
       </div>
     </section>
+
 
     <section id="jobs" class="row g-3" aria-live="polite" aria-label="Job listings">
       <!-- populated by js -->
@@ -112,14 +120,38 @@
       renderTaskList({
         skill: document.getElementById('filter-skill').value.trim(),
         duration: document.getElementById('filter-duration').value,
-        remote: document.getElementById('filter-remote').value
+        remote: document.getElementById('filter-remote').value,
+        disability: document.getElementById('filter-disability').value
       });
     });
     document.getElementById('clearFilters').addEventListener('click', ()=>{
-      document.getElementById('filter-skill').value=''; document.getElementById('filter-duration').value=''; document.getElementById('filter-remote').value='';
+      document.getElementById('filter-skill').value=''; document.getElementById('filter-duration').value=''; document.getElementById('filter-remote').value=''; document.getElementById('filter-disability').value = '';
       renderTaskList();
     });
     document.getElementById('logoutBtn').addEventListener('click', ()=>{ logoutLocal(); location.href='index.html'; });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const authLink = document.getElementById('auth-link');
+      if (!authLink) return;
+
+      const user = getCurrentUser();
+
+      if (user && user.id) {
+        // Logged in → show Logout
+        authLink.textContent = 'Logout';
+        authLink.href = '#';
+        authLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          logoutLocal();
+          location.href = 'index.html';
+        });
+      } else {
+        // Not logged in → show Login
+        authLink.textContent = 'Login';
+        authLink.href = 'login.html';
+      }
+    });
   </script>
 </body>
 </html>

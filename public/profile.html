@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>User Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body id="body-root">
+
+  <!-- Top toolbar -->
+  <div class="tool-buttons d-flex justify-content-end gap-2 p-2">
+    <button class="btn btn-outline-secondary btn-sm" id="decrease-font">A-</button>
+    <button class="btn btn-outline-secondary btn-sm" id="reset-font">A</button>
+    <button class="btn btn-outline-secondary btn-sm" id="increase-font">A+</button>
+    <button class="btn btn-outline-dark btn-sm" id="toggle-contrast">High Contrast</button>
+    <button class="btn btn-info btn-sm" id="tts-read">Read Aloud</button>
+    <button class="btn btn-outline-primary btn-sm" id="voice-btn">🎤</button>
+    <select id="langSelect" class="form-select form-select-sm" style="width:140px;">
+      <option value="en" selected>English</option>
+      <option value="zh">中文</option>
+      <option value="ms">Bahasa</option>
+      <option value="ta">தமிழ்</option>
+    </select>
+  </div>
+
+  <!-- Navbar -->
+  <header class="container py-4">
+    <nav class="navbar" role="navigation">
+      <div class="container">
+        <a href="index.html" class="navbar-brand">Employer–PWD Portal</a>
+        <ul class="navbar-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="pwd-dashboard.html">PWD Dashboard</a></li>
+          <li><a href="company-dashboard.html">For Employers</a></li>
+          <li><a href="index.html">Resources</a></li>
+          <li><a href="profile.html">Profile</a></li>
+          <li><a id="auth-link" href="login.html">Login</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Profile -->
+  <main class="container py-4">
+    <h1 class="mb-4">My Profile</h1>
+    <div id="profile-info" class="mb-5">
+      <!-- User info populated by JS -->
+    </div>
+
+    <h2 class="mb-3">Achievements</h2>
+    <div id="profile-achievements" class="row g-3">
+      <!-- Achievements populated by JS -->
+    </div>
+  </main>
+
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const user = getCurrentUser();
+      if (!user) {
+        alert('Please login to view profile');
+        location.href = 'login.html';
+        return;
+      }
+
+      // --- Profile Info ---
+      const infoDiv = document.getElementById('profile-info');
+      infoDiv.innerHTML = `
+        <p><strong>Role:</strong> ${user.role}</p>
+        <p><strong>Name:</strong> ${user.name}</p>
+        <p><strong>Email:</strong> ${user.email}</p>
+        ${user.role === 'PWD' 
+          ? `<p><strong>Disability:</strong> ${user.disability || 'Not specified'}</p>` 
+          : `<p><strong>Company:</strong> ${user.company || 'Demo Company'}</p>`}
+      `;
+      
+      // --- Achievements ---
+      const achDiv = document.getElementById('profile-achievements');
+
+      // Get job count (dummy: you can increment this elsewhere when jobs are applied/posted)
+      let jobCount = 0;
+      if (user.role === 'PWD') {
+        jobCount = parseInt(localStorage.getItem('jobsDone') || "0", 10);
+      } else if (user.role === 'Employer') {
+        jobCount = parseInt(localStorage.getItem('jobsPosted') || "0", 10);
+      }
+
+      const achievements = [
+        {jobs: 3, label: "Completed 3 jobs"},
+        {jobs: 5, label: "Completed 5 jobs"},
+        {jobs: 10, label: "Completed 10 jobs"}
+      ];
+
+      achievements.forEach(a => {
+        if (jobCount >= a.jobs) {   
+          const col = document.createElement('div');
+          col.className = "col-md-4";
+          col.innerHTML = `
+            <div class="card text-center p-3 shadow-sm">
+              <h5 class="card-title">${a.label}</h5>
+              <p class="text-success">Badge unlocked for ${user.role === 'PWD' ? 'PWD' : 'Employer'}</p>
+            </div>`;
+          achDiv.appendChild(col);
+        }
+      });
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const authLink = document.getElementById('auth-link');
+      if (!authLink) return;
+
+      const user = getCurrentUser();
+
+      if (user && user.id) {
+        // Logged in → show Logout
+        authLink.textContent = 'Logout';
+        authLink.href = '#';
+        authLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          logoutLocal();
+          location.href = 'index.html';
+        });
+      } else {
+        // Not logged in → show Login
+        authLink.textContent = 'Login';
+        authLink.href = 'login.html';
+      }
+    });
+  </script>
+</body>
+</html>
