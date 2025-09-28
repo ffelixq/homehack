@@ -44,7 +44,8 @@
           <li><a href="pwd-dashboard.html">PWD Dashboard</a></li>
           <li><a href="company-dashboard.html">For Employers</a></li>
           <li><a href="#resources">Resources</a></li>
-          <li><a href="login.html">Login</a></li>
+          <li><a href="profile.html">Profile</a></li>
+          <li><a id="auth-link" href="login.html">Login</a></li>
         </ul>
       </div>
     </nav>
@@ -116,6 +117,29 @@
       document.body.classList.toggle("high-contrast");
     });
   });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const authLink = document.getElementById('auth-link');
+      if (!authLink) return;
+
+      const user = getCurrentUser();
+
+      if (user && user.id) {
+        // Logged in → show Logout
+        authLink.textContent = 'Logout';
+        authLink.href = '#';
+        authLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          logoutLocal();
+          location.href = 'index.html';
+        });
+      } else {
+        // Not logged in → show Login
+        authLink.textContent = 'Login';
+        authLink.href = 'login.html';
+      }
+    });
   </script>
 
 </body>

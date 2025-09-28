@@ -42,7 +42,8 @@
           <li><a href="pwd-dashboard.html">PWD Dashboard</a></li>
           <li><a href="company-dashboard.html">For Employers</a></li>
           <li><a href="index.html">Resources</a></li>
-          <li><a href="login.html">Login</a></li>
+          <li><a href="profile.html">Profile</a></li>
+          <li><a id="auth-link" href="login.html">Login</a></li>
         </ul>
       </div>
     </nav>
@@ -52,10 +53,6 @@
   <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center">
       <h1>Your posted tasks</h1>
-      <div>
-        <a href="index.html" class="btn btn-link">Home</a>
-        <button id="logoutBtn" class="btn btn-outline-secondary">Logout</button>
-      </div>
     </div>
 
     <section id="post-task" class="my-4">
@@ -85,6 +82,16 @@
           <div class="col-md-6">
             <label class="form-label">Expected Pay</label>
             <input id="task-pay" class="form-control" placeholder="e.g., $12/hour or $500/project" />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Suited for Disability</label>
+            <select id="task-disability" class="form-select">
+              <option value="">None specified</option>
+              <option value="Physical">Physical</option>
+              <option value="Intellectual">Intellectual</option>
+              <option value="Sensory">Sensory</option>
+              <option value="Autism">Autism</option>
+            </select>
           </div>
         </div>
         <div class="mt-2">
@@ -117,6 +124,7 @@
         accommodations: document.getElementById('task-acc').value.trim(),
         duration: document.getElementById('task-duration').value,
         expected_pay: document.getElementById('task-pay').value.trim(),
+        suited_for_disability: document.getElementById('task-disability').value,
         company_id: getCurrentUser().id
       };
       createLocalTask(task);
@@ -125,6 +133,29 @@
     });
 
     document.getElementById('logoutBtn').addEventListener('click', ()=>{ logoutLocal(); location.href='index.html'; });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const authLink = document.getElementById('auth-link');
+      if (!authLink) return;
+
+      const user = getCurrentUser();
+
+      if (user && user.id) {
+        // Logged in → show Logout
+        authLink.textContent = 'Logout';
+        authLink.href = '#';
+        authLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          logoutLocal();
+          location.href = 'index.html';
+        });
+      } else {
+        // Not logged in → show Login
+        authLink.textContent = 'Login';
+        authLink.href = 'login.html';
+      }
+    });
   </script>
 </body>
 </html>

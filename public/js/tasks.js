@@ -34,6 +34,7 @@ function renderTaskList(filters = {}){
     if(filters.skill && !t.skills_required.toLowerCase().includes(filters.skill.toLowerCase())) return false;
     if(filters.duration && filters.duration !== '' && t.duration !== filters.duration) return false;
     if(filters.remote && filters.remote !== '' && t.mode !== filters.remote) return false;
+    if(filters.disability && filters.disability !== '' && (t.suited_for_disability || '') !== filters.disability) return false;
     return true;
   });
   if(tasks.length === 0) container.innerHTML = '<p>No tasks found.</p>';
@@ -45,6 +46,7 @@ function renderTaskList(filters = {}){
         <p><strong>Skills:</strong> ${escapeHtml(t.skills_required)}</p>
         <p><strong>Duration:</strong> ${escapeHtml(t.duration)} • <strong>Mode:</strong> ${escapeHtml(t.mode || 'Remote')}</p>
         <p><strong>Expected Pay:</strong> ${escapeHtml(t.expected_pay || 'Not specified')}</p>
+        <p><strong>Suited for Disability:</strong> ${escapeHtml(t.suited_for_disability || 'Any')}</p>
         <div class="d-flex gap-2">
           <a class="btn btn-sm btn-primary" href="task-detail.html?id=${t.id}" aria-label="Open ${escapeHtml(t.title)} details">View</a>
           <button class="btn btn-sm btn-outline-success" onclick="applyToTask('${t.id}')">Quick apply</button>
